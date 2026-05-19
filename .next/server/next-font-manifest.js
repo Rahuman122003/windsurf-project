@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/abdulrahuman/Documents/blyn-wac/CascadeProjects/windsurf-project/app/layout\":[\"static/media/c441a7a257a6e5bf-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
