@@ -95,8 +95,8 @@ const intros: Intro[] = [
     eyebrow: "07 — PROX",
     title: "Meet PROX — our digital brand ambassador.",
     body:
-      "Built with ProBiz Technologies, PROX is the studio's always-on representative. A trained voice, a curated knowledge base, and a teammate who never sleeps.",
-    bullets: ["Always-on, on brand", "Conversational intake", "Built by ProBiz Technologies"],
+      "Built with Probiz Technologies, PROX is the studio's always-on representative. A trained voice, a curated knowledge base, and a teammate who never sleeps.",
+    bullets: ["Always-on, on brand", "Conversational intake", "Built by Probiz Technologies"],
     href: "/prox",
     cta: "Meet PROX",
     img: mascotImg.src,
@@ -143,29 +143,33 @@ export default function HomeIntros() {
             scrub: 1,
           },
         });
+        // Alternating horizontal entry — media from one side, copy from the
+        // opposite side. `reverse` flips for every other slide.
+        const mediaFrom = reverse ? 70 : -70;   // % of width
+        const copyFrom  = reverse ? -60 : 60;
         tl.fromTo(
           media,
           {
-            yPercent: 22,
+            xPercent: mediaFrom,
             autoAlpha: 0,
-            scale: 1.08,
-            clipPath: "inset(100% 0% 0% 0%)",
-            rotate: reverse ? 1.4 : -1.4,
+            scale: 1.04,
+            rotate: reverse ? 1.2 : -1.2,
+            filter: "blur(8px)",
           },
           {
-            yPercent: 0,
+            xPercent: 0,
             autoAlpha: 1,
             scale: 1,
-            clipPath: "inset(0% 0% 0% 0%)",
             rotate: 0,
-            ease: "power4.out",
+            filter: "blur(0px)",
+            ease: "power3.out",
           },
           0
         ).fromTo(
           copy,
-          { yPercent: 18, autoAlpha: 0 },
-          { yPercent: 0, autoAlpha: 1, ease: "power4.out" },
-          0.08
+          { xPercent: copyFrom, autoAlpha: 0, filter: "blur(6px)" },
+          { xPercent: 0, autoAlpha: 1, filter: "blur(0px)", ease: "power3.out" },
+          0.05
         );
         if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
 
@@ -178,25 +182,26 @@ export default function HomeIntros() {
             scrub: 1.4,
           },
         });
-        parallax.fromTo(media, { yPercent: 14 }, { yPercent: -16, ease: "none" }, 0);
+        parallax.fromTo(media, { yPercent: 8 }, { yPercent: -10, ease: "none" }, 0);
         parallax.fromTo(copy, { yPercent: -2 }, { yPercent: 4, ease: "none" }, 0);
         if (parallax.scrollTrigger) triggers.push(parallax.scrollTrigger);
 
-        // 3) Inner copy: rise-up stagger with blur→focus
+        // 3) Inner copy: gentle horizontal stagger that follows the slide-in
         if (copyKids.length) {
+          const innerFrom = reverse ? -40 : 40;
           const inner = gsap.fromTo(
             copyKids,
-            { y: 50, autoAlpha: 0, filter: "blur(10px)" },
+            { x: innerFrom, autoAlpha: 0, filter: "blur(8px)" },
             {
-              y: 0,
+              x: 0,
               autoAlpha: 1,
               filter: "blur(0px)",
-              duration: 0.95,
+              duration: 1.0,
               ease: "power4.out",
-              stagger: 0.1,
+              stagger: 0.09,
               scrollTrigger: {
                 trigger: slide,
-                start: "top 75%",
+                start: "top 78%",
                 toggleActions: "play none none reverse",
               },
             }
@@ -265,7 +270,7 @@ export default function HomeIntros() {
   }, []);
 
   return (
-    <section className="bg-ink text-white">
+    <section className="bg-ink text-white overflow-x-clip">
       <div className="max-w-container mx-auto px-6 lg:px-10 py-28 lg:py-40">
         <div className="max-w-3xl mb-20 lg:mb-28">
           <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-5">The Studio</div>

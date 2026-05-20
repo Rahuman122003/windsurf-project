@@ -9,6 +9,18 @@ export default function SmoothScroll() {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 
+    // Skip Lenis on touch devices (native momentum scroll feels better and
+    // avoids gesture hijacking) and when the user prefers reduced motion.
+    const isTouch =
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    const reduceMotion =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isTouch || reduceMotion) {
+      // Still ensure ScrollTrigger is registered so other components work.
+      ScrollTrigger.refresh();
+      return;
+    }
+
     const lenis = new Lenis({
       // Balanced lerp — high enough to feel responsive, low enough to glide
       // through pinned/sticky sections without judder.

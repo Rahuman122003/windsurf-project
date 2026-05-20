@@ -1,6 +1,6 @@
 "use client";
 import { Linkedin, Youtube, Instagram, Facebook, Dribbble, Twitter, Mail, Phone } from "lucide-react";
-import logoLight from "@/assets/blynlightlogo.png";
+import logoDark from "@/assets/blyndarklogo.png";
 
 type FooterLink = { label: string; href: string };
 const cols: { title: string; links: FooterLink[] }[] = [
@@ -39,7 +39,7 @@ export default function Footer() {
       <div className="max-w-container mx-auto px-6 lg:px-10 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
           <div className="col-span-2 md:col-span-1">
-            <img src={logoLight.src} alt="Blyn" className="h-10 w-auto" />
+            <img src={logoDark.src} alt="Blyn" className="h-10 w-auto" />
             <p className="mt-4 text-sm text-white/60 leading-relaxed">
               A premium digital agency crafting cinematic products and brand experiences.
             </p>

@@ -6,8 +6,17 @@ export default function CustomCursor() {
   const ring = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dotEl = dot.current!;
-    const ringEl = ring.current!;
+    // Touch devices already hide the cursor via CSS — avoid running the RAF
+    // loop and listeners on mobile/tablet entirely.
+    if (
+      typeof window === "undefined" ||
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches
+    ) {
+      return;
+    }
+    const dotEl = dot.current;
+    const ringEl = ring.current;
+    if (!dotEl || !ringEl) return;
     let mx = 0, my = 0, rx = 0, ry = 0;
 
     // Only update mouse coords on move; all DOM writes happen in a single RAF

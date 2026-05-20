@@ -5,7 +5,7 @@ import FooterCTA from "@/components/FooterCTA";
 
 export const metadata = {
   title: "PROX — Digital Brand Ambassador",
-  description: "Meet PROX — our digital brand ambassador, built by ProBiz Technologies. An always-on presence that represents the studio across product, content and conversation.",
+  description: "Meet PROX — our digital brand ambassador, built by Probiz Technologies. An always-on presence that represents the studio across product, content and conversation.",
 };
 
 const capabilities = [
@@ -55,11 +55,11 @@ export default function ProxPage() {
           </div>
         </DetailSection>
 
-        <DetailSection eyebrow="Behind the scenes" title="Built by ProBiz Technologies.">
+        <DetailSection eyebrow="Behind the scenes" title="Built by Probiz Technologies.">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <p className="text-white/75 text-lg leading-relaxed">
               PROX was designed and engineered in partnership with{" "}
-              <span className="text-white font-semibold">ProBiz Technologies</span> — the
+              <span className="text-white font-semibold">Probiz Technologies</span> — the
               applied-AI team responsible for some of the most considered
               conversational systems we have shipped. Together we built a model
               pipeline, a tone-of-voice harness, and an evaluation suite that

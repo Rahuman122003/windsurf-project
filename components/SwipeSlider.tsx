@@ -53,12 +53,13 @@ const slides: Slide[] = [
  * Slots are equal slices of the full scroll progress.
  */
 const SCROLL_VIEWPORTS = 4; // pinned scroll length
-const TRANSITION = 0.18; // share of each slot used for in/out motion (rest = hold)
+const TRANSITION = 0.32; // share of each slot used for in/out motion (rest = hold)
 
 const clamp = (v: number, a: number, b: number) => Math.min(Math.max(v, a), b);
+// Quintic smootherstep — zero 1st & 2nd derivatives at the ends for buttery in/out.
 const smooth = (t: number) => {
   const x = clamp(t, 0, 1);
-  return x * x * (3 - 2 * x);
+  return x * x * x * (x * (x * 6 - 15) + 10);
 };
 
 export default function SwipeSlider() {
@@ -140,8 +141,13 @@ export default function SwipeSlider() {
           opacity = 0;
         }
 
-        el.style.transform = `translate3d(0, ${yPercent}%, 0)`;
+        // Subtle scale + blur during transitions for a cinematic feel.
+        const inOut = 1 - opacity; // 0 while holding, 1 at the edges
+        const scale = 1 - inOut * 0.04;
+        const blur = inOut * 6;
+        el.style.transform = `translate3d(0, ${yPercent}%, 0) scale(${scale})`;
         el.style.opacity = String(opacity);
+        el.style.filter = blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : "";
         el.style.pointerEvents = opacity > 0.5 ? "auto" : "none";
       });
     };
@@ -168,7 +174,7 @@ export default function SwipeSlider() {
         style={{ height: `${(SCROLL_VIEWPORTS + 1) * 100}svh` }}
       >
         <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-ink">
-          {/* Looping background video — right side. */}
+          {/* Looping background video — full bleed. */}
           <video
             ref={videoRef}
             src={scrollVideo}
@@ -176,11 +182,13 @@ export default function SwipeSlider() {
             playsInline
             loop
             preload="auto"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[55%] object-cover"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           />
 
-          {/* Left fade for legibility. */}
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-transparent" />
+          {/* Cinematic legibility scrim — soft vignette + bottom fade. */}
+          <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_0%,rgba(6,8,11,0.55)_60%,rgba(6,8,11,0.85)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/35 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
 
           {/* Slide stack — grid cell 1/1 so all share the same box. The
               `overflow-hidden` wrapper clips slides as they translate up/down,
@@ -199,7 +207,7 @@ export default function SwipeSlider() {
                     // the section is below the fold at mount.
                     transform: i === 0 ? "translate3d(0,0,0)" : "translate3d(0,100%,0)",
                     opacity: i === 0 ? 1 : 0,
-                    willChange: "transform, opacity",
+                    willChange: "transform, opacity, filter",
                   }}
                 >
                   <div className="text-sm uppercase tracking-[0.3em] opacity-70 mb-6">

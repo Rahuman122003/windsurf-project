@@ -25,6 +25,31 @@
 
 * { -webkit-font-smoothing: antialiased; }
 
+/* ── Liquid glass navbar animations ───────────────────────────── */
+@keyframes liquid-sheen {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  35%  { opacity: 0.9; }
+  60%  { opacity: 0.9; }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+@keyframes liquid-hue {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50%      { filter: hue-rotate(35deg); }
+}
+@keyframes liquid-blob {
+  0%   { transform: translate3d(-10%,  10%, 0) scale(1); }
+  33%  { transform: translate3d( 30%, -10%, 0) scale(1.15); }
+  66%  { transform: translate3d( 60%,  20%, 0) scale(0.95); }
+  100% { transform: translate3d(-10%,  10%, 0) scale(1); }
+}
+.liquid-sheen   { animation: liquid-sheen 6s ease-in-out infinite; }
+.liquid-hue     { animation: liquid-hue 12s ease-in-out infinite; }
+.liquid-blob-a  { animation: liquid-blob 14s ease-in-out infinite; }
+.liquid-blob-b  { animation: liquid-blob 18s ease-in-out infinite reverse; }
+@media (prefers-reduced-motion: reduce) {
+  .liquid-sheen, .liquid-hue, .liquid-blob-a, .liquid-blob-b { animation: none; }
+}
+
 :root {
   --font-sans: "Google Sans", "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }

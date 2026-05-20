@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import PageHero from "./PageHero";
+import SectionReveal from "./SectionReveal";
 
 type Props = {
   eyebrow: string;
@@ -9,19 +11,14 @@ type Props = {
 
 /**
  * Shared dark-theme shell for the detailed sub-pages.
- * Pure black background, white text, generous typography.
+ * Cinematic hero (WebGL aurora + char-split title) and scroll-reveal
+ * for every nested `<section>` (DetailSection) inside `children`.
  */
 export default function PageShell({ eyebrow, title, lede, children }: Props) {
   return (
-    <div className="bg-ink text-white min-h-screen">
-      <section className="pt-40 pb-20 px-6 lg:px-10 max-w-container mx-auto">
-        <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-6">{eyebrow}</div>
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.02] tracking-tight">
-          {title}
-        </h1>
-        <p className="mt-8 text-xl md:text-2xl text-white/70 max-w-3xl leading-relaxed">{lede}</p>
-      </section>
-      {children}
+    <div className="bg-ink text-white min-h-screen overflow-x-clip">
+      <PageHero eyebrow={eyebrow} title={title} lede={lede} />
+      <SectionReveal>{children}</SectionReveal>
     </div>
   );
 }

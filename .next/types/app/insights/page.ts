@@ -1,4 +1,4 @@
-// File: /Users/abdulrahuman/Documents/blyn-wac/CascadeProjects/windsurf-project/app/insights/page.tsx
+// File: /Users/abdulrahuman/Documents/GitHub/windsurf-project/app/insights/page.tsx
 import * as entry from '../../../../app/insights/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

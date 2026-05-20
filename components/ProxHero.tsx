@@ -93,33 +93,28 @@ export default function ProxHero() {
         });
       }
 
-      // Slow rotating decorative ring
+      // Slow rotating decorative orbits (outer CW, inner CCW)
       if (ring) {
-        gsap.to(ring, { rotate: 360, duration: 30, ease: "none", repeat: -1 });
+        gsap.to(ring, { rotate: 360, duration: 40, ease: "none", repeat: -1 });
+      }
+      const ringInner = root.querySelector<HTMLElement>(".prox-hero-ring-inner");
+      if (ringInner) {
+        gsap.to(ringInner, { rotate: -360, duration: 60, ease: "none", repeat: -1 });
       }
 
       // Scroll-driven parallax
-      gsap.to(mascot, {
-        yPercent: -18,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-      });
-      gsap.to(halo, {
-        yPercent: 10,
-        scale: 1.2,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.4,
-        },
-      });
+      if (mascot) {
+        gsap.to(mascot, {
+          yPercent: -18,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        });
+      }
 
       // Velocity-reactive tilt on mascot
       ScrollTrigger.create({
@@ -145,7 +140,23 @@ export default function ProxHero() {
   const title = "Meet PROX.";
   return (
     <div ref={rootRef} className="relative overflow-hidden bg-ink text-white">
-      <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 px-6 lg:px-10">
+      {/* Cinematic video backdrop */}
+      <div className="absolute inset-0 z-0" aria-hidden>
+        <video
+          src="/proxhero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* Legibility scrim — vignette + ink fade */}
+        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_0%,rgba(6,8,11,0.55)_60%,rgba(6,8,11,0.9)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
+      </div>
+      <section className="relative z-10 pt-32 pb-24 lg:pt-44 lg:pb-32 px-6 lg:px-10">
         <div className="max-w-container mx-auto grid lg:grid-cols-2 gap-16 items-center">
           {/* Copy */}
           <div className="relative z-10">
@@ -169,7 +180,7 @@ export default function ProxHero() {
             <p className="prox-hero-lede mt-8 text-xl md:text-2xl text-white/70 leading-relaxed max-w-xl">
               Our studio mascot — a fox with a rocket on his back, designed and
               engineered by{" "}
-              <span className="text-white font-semibold">ProBiz Technologies</span>.
+              <span className="text-white font-semibold">Probiz Technologies</span>.
               Trained on our work, our voice and our principles. Always on,
               always on brand.
             </p>
@@ -192,17 +203,22 @@ export default function ProxHero() {
             </div>
           </div>
 
-          {/* Mascot stage */}
+          {/* Mascot stage — backdrop video sits behind */}
           <div className="relative aspect-square w-full max-w-[640px] mx-auto">
-            {/* Decorative rotating ring */}
+            {/* Outer slow-rotating dashed orbit */}
             <div
-              className="prox-hero-ring absolute inset-6 rounded-full border border-dashed border-white/20"
+              className="prox-hero-ring absolute inset-0 rounded-full border border-dashed border-white/25"
               aria-hidden
             />
-            {/* Aurora halo */}
+            {/* Inner thinner orbit (counter-rotates) */}
             <div
-              className="prox-hero-halo absolute inset-0 rounded-full blur-3xl opacity-70
-                         bg-[radial-gradient(closest-side,rgba(99,102,241,0.7),rgba(168,85,247,0.35),transparent_70%)]"
+              className="prox-hero-ring-inner absolute inset-10 rounded-full border border-white/10"
+              aria-hidden
+            />
+            {/* Soft halo behind the mascot */}
+            <div
+              className="prox-hero-halo absolute inset-6 rounded-full blur-3xl opacity-70
+                         bg-[radial-gradient(closest-side,rgba(168,85,247,0.55),rgba(236,72,153,0.25),transparent_70%)]"
               aria-hidden
             />
             {/* Mascot */}
@@ -211,20 +227,6 @@ export default function ProxHero() {
               alt="PROX — Blyn's digital brand ambassador"
               className="prox-hero-mascot relative z-10 h-full w-full object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)] will-change-transform"
             />
-            {/* Floating chips */}
-            <div
-              className="absolute top-[12%] left-[4%] hidden md:flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1.5 text-xs border border-white/20"
-              aria-hidden
-            >
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              Online
-            </div>
-            <div
-              className="absolute bottom-[10%] right-[2%] hidden md:flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1.5 text-xs border border-white/20"
-              aria-hidden
-            >
-              ProBiz Technologies
-            </div>
           </div>
         </div>
       </section>

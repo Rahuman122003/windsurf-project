@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import FooterReveal from "@/components/FooterReveal";
+import RouteTransition from "@/components/RouteTransition";
 
 const spartan = League_Spartan({
   subsets: ["latin"],
@@ -34,7 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <CustomCursor />
         <Nav />
-        <main className="relative z-10 bg-white">{children}</main>
+        <main className="relative z-10 bg-white">
+          <RouteTransition>{children}</RouteTransition>
+        </main>
         <Footer />
         <FooterReveal />
       </body>
