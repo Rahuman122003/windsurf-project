@@ -134,13 +134,14 @@ export default function HomeIntros() {
         const copyKids = copy ? Array.from(copy.children) : [];
         const mascot = slide.querySelector<HTMLElement>(".prox-mascot");
 
-        // 1) Scrubbed BOTTOM-UP slide-in with clip-path curtain reveal
+        // 1) Play-on-enter reveal — fires once when the slide enters the
+        // viewport and stays in place. `once: true` prevents it from
+        // rewinding/hiding when the user scrolls back up to re-read.
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: slide,
-            start: "top 92%",
-            end: "top 38%",
-            scrub: 1,
+            start: "top 88%",
+            once: true,
           },
         });
         // Alternating horizontal entry — media from one side, copy from the
@@ -162,18 +163,26 @@ export default function HomeIntros() {
             scale: 1,
             rotate: 0,
             filter: "blur(0px)",
+            duration: 1.1,
             ease: "power3.out",
           },
           0
         ).fromTo(
           copy,
           { xPercent: copyFrom, autoAlpha: 0, filter: "blur(6px)" },
-          { xPercent: 0, autoAlpha: 1, filter: "blur(0px)", ease: "power3.out" },
-          0.05
+          {
+            xPercent: 0,
+            autoAlpha: 1,
+            filter: "blur(0px)",
+            duration: 1.0,
+            ease: "power3.out",
+          },
+          0.1
         );
         if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
 
-        // 2) Long-arc vertical parallax — media drifts up faster than copy
+        // 2) Subtle media-only parallax — copy stays put so it's easy to
+        // read; only the image drifts gently for depth.
         const parallax = gsap.timeline({
           scrollTrigger: {
             trigger: slide,
@@ -182,11 +191,12 @@ export default function HomeIntros() {
             scrub: 1.4,
           },
         });
-        parallax.fromTo(media, { yPercent: 8 }, { yPercent: -10, ease: "none" }, 0);
-        parallax.fromTo(copy, { yPercent: -2 }, { yPercent: 4, ease: "none" }, 0);
+        parallax.fromTo(media, { yPercent: 4 }, { yPercent: -4, ease: "none" }, 0);
         if (parallax.scrollTrigger) triggers.push(parallax.scrollTrigger);
 
-        // 3) Inner copy: gentle horizontal stagger that follows the slide-in
+        // 3) Inner copy: gentle horizontal stagger that follows the slide-in.
+        // Plays once and stays — no reverse on scroll-back so the user can
+        // freely scroll up to re-read without text disappearing.
         if (copyKids.length) {
           const innerFrom = reverse ? -40 : 40;
           const inner = gsap.fromTo(
@@ -196,13 +206,13 @@ export default function HomeIntros() {
               x: 0,
               autoAlpha: 1,
               filter: "blur(0px)",
-              duration: 1.0,
+              duration: 0.9,
               ease: "power4.out",
-              stagger: 0.09,
+              stagger: 0.07,
               scrollTrigger: {
                 trigger: slide,
-                start: "top 78%",
-                toggleActions: "play none none reverse",
+                start: "top 82%",
+                once: true,
               },
             }
           );
@@ -244,23 +254,9 @@ export default function HomeIntros() {
         }
       });
 
-      // 5) Velocity-reactive subtle tilt on the whole grid
-      ScrollTrigger.create({
-        trigger: root,
-        start: "top bottom",
-        end: "bottom top",
-        onUpdate: (self) => {
-          const v = gsap.utils.clamp(-1, 1, self.getVelocity() / 2800);
-          slides.forEach((s) => {
-            gsap.to(s, {
-              skewY: v * 0.8,
-              duration: 0.6,
-              ease: "power3.out",
-              overwrite: "auto",
-            });
-          });
-        },
-      });
+      // 5) Velocity-reactive tilt removed — it skewed the whole slide on
+      // fast scrolls, which made body copy hard to read. Keeping the slides
+      // visually stable while the user is reading.
     }, root);
 
     return () => {
