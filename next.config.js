@@ -7,5 +7,14 @@ const nextConfig = {
       { protocol: "https", hostname: "i.pravatar.cc" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/insights",
+        destination: "https://blogsbyprobiz.vercel.app/blyn-tech/blogs",
+        permanent: true,
+      },
+    ];
+  },
 };
 module.exports = nextConfig;

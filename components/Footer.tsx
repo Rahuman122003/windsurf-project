@@ -10,7 +10,7 @@ const cols: { title: string; links: FooterLink[] }[] = [
       { label: "About", href: "/stories" },
       { label: "Story", href: "/stories" },
       { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/insights" },
+      { label: "Press", href: "https://blogsbyprobiz.vercel.app/blyn-tech/blogs" },
     ],
   },
   {
@@ -25,7 +25,7 @@ const cols: { title: string; links: FooterLink[] }[] = [
   {
     title: "Other",
     links: [
-      { label: "Blog", href: "/insights" },
+      { label: "Blogs", href: "https://blogsbyprobiz.vercel.app/blyn-tech/blogs" },
       { label: "Case Studies", href: "/work" },
       { label: "PROX", href: "/prox" },
       { label: "Contact", href: "/contact" },

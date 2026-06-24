@@ -70,12 +70,12 @@ const intros: Intro[] = [
     isMascot: true,
   },
   {
-    eyebrow: "05 — Insights",
+    eyebrow: "05 — Blogs",
     title: "Field notes from people doing the work.",
     body:
       "Long-form, opinionated essays on craft, AI evals, design systems and the boring parts of shipping. Roughly monthly cadence, no filler.",
     bullets: ["Evals first, prompts second", "The honest cost of design systems", "Edge rendering in plain English"],
-    href: "/insights",
+    href: "https://blogsbyprobiz.vercel.app/blyn-tech/blogs",
     cta: "Read the essays",
     img: insightsProx.src,
     isMascot: true,

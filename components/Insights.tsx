@@ -138,15 +138,15 @@ export default function Insights() {
   }, []);
 
   return (
-    <section id="insights" ref={sectionRef} className="py-24 lg:py-32 bg-white">
+    <section id="blogs" ref={sectionRef} className="py-24 lg:py-32 bg-white">
       <div className="max-w-container mx-auto px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
           <RevealText
             as="h2"
-            text="Insights from the studio"
+            text="Blogs from the studio"
             className="font-display font-extrabold leading-[1.02] max-w-4xl text-5xl md:text-7xl"
           />
-          <PrismButton href="/insights" variant="silver">Read all</PrismButton>
+          <PrismButton href="https://blogsbyprobiz.vercel.app/blyn-tech/blogs" variant="silver">Read all</PrismButton>
         </div>
 
         <div
@@ -162,7 +162,7 @@ export default function Insights() {
               return (
                 <a
                   key={i}
-                  href="/insights"
+                  href="https://blogsbyprobiz.vercel.app/blyn-tech/blogs"
                   className={`${base} ${c.span} ${c.className || ""}`}
                 >
                   <div className="absolute inset-0 overflow-hidden">

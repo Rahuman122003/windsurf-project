@@ -1,8 +1,8 @@
-// File: /Users/abdulrahuman/Documents/GitHub/windsurf-project/app/stories/page.tsx
-import * as entry from '../../../../app/stories/page.js'
+// File: /Users/abdulrahuman/Documents/GitHub/windsurf-project/app/prox/page.tsx
+import * as entry from '../../../../app/prox/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../app/stories/page.js')
+type TEntry = typeof import('../../../../app/prox/page.js')
 
 // Check that the entry is a valid entry
 checkFields<Diff<{

@@ -11,7 +11,7 @@ const links = [
   { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/stories", label: "Stories" },
-  { href: "/insights", label: "Insights" },
+  { href: "https://blogsbyprobiz.vercel.app/blyn-tech/blogs", label: "Blogs" },
   { href: "/careers", label: "Careers" },
   { href: "/prox", label: "PROX" },
 ];
