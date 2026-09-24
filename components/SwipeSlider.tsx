@@ -210,22 +210,22 @@ export default function SwipeSlider() {
                     willChange: "transform, opacity, filter",
                   }}
                 >
-                  <div className="text-sm uppercase tracking-[0.3em] opacity-70 mb-6">
+                  <div className="text-xs sm:text-sm uppercase tracking-[0.3em] opacity-70 mb-4 sm:mb-6">
                     {s.eyebrow}
                   </div>
                   <h2
-                    className="font-display font-extrabold leading-[1.0]"
+                    className="font-display font-extrabold leading-[1.02]"
                     style={{
-                      fontSize: "clamp(48px,6.5vw,104px)",
+                      fontSize: "clamp(28px, 5.5vw, 96px)",
                       letterSpacing: "-0.01em",
                     }}
                   >
                     {s.title}
                   </h2>
-                  <p className="mt-6 text-lg md:text-xl opacity-75 max-w-xl leading-relaxed">
+                  <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl opacity-75 max-w-xl leading-relaxed">
                     {s.body}
                   </p>
-                  <div className="mt-10">
+                  <div className="mt-6 sm:mt-10">
                     <PrismButton href={s.href}>{s.cta}</PrismButton>
                   </div>
                 </div>
@@ -233,7 +233,7 @@ export default function SwipeSlider() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute top-24 right-6 lg:right-10 z-20 text-xs uppercase tracking-[0.3em] opacity-60">
+          <div className="pointer-events-none absolute top-24 right-4 sm:right-6 lg:right-10 z-20 text-[10px] sm:text-xs uppercase tracking-[0.3em] opacity-60">
             Scroll ↓
           </div>
         </div>

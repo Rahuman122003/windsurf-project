@@ -36,15 +36,15 @@ export function DetailSection({
   className?: string;
 }) {
   return (
-    <section className={`px-6 lg:px-10 max-w-container mx-auto py-20 lg:py-28 border-t border-white/10 ${className}`}>
+    <section className={`px-4 sm:px-6 lg:px-10 max-w-container mx-auto py-12 sm:py-20 lg:py-28 border-t border-white/10 ${className}`}>
       {eyebrow && (
-        <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">{eyebrow}</div>
+        <div className="text-[11px] sm:text-xs uppercase tracking-[0.3em] text-white/50 mb-3 sm:mb-4 font-mono">{eyebrow}</div>
       )}
       {title && (
         <RevealText
           text={title}
           as="h2"
-          className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mb-12"
+          className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mb-8 sm:mb-12"
         />
       )}
       {children}

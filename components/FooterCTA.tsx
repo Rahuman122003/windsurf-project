@@ -77,7 +77,7 @@ export default function FooterCTA() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="bg-ink text-white py-28 lg:py-40 relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="bg-ink text-white py-16 sm:py-28 lg:py-40 relative overflow-hidden border-t border-white/10">
       {/* Decorative floating dots */}
       <div className="fcta-dot absolute top-20 left-[15%] w-2 h-2 rounded-full bg-white/10" />
       <div className="fcta-dot absolute top-32 right-[20%] w-1.5 h-1.5 rounded-full bg-white/15" />
@@ -85,16 +85,16 @@ export default function FooterCTA() {
       <div className="fcta-dot absolute bottom-16 right-[30%] w-2.5 h-2.5 rounded-full bg-white/8" />
 
       {/* Radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[400px] bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-container mx-auto px-6 lg:px-10 text-center relative z-10">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 text-center relative z-10">
         <RevealText
           as="h2"
           text="Get started now!"
-          className="font-display font-extrabold leading-[1.0] mx-auto text-6xl md:text-8xl"
+          className="font-display font-extrabold leading-[1.05] mx-auto text-4xl sm:text-6xl md:text-8xl"
         />
-        <p className="fcta-sub mt-6 text-white/65 text-xl md:text-2xl">It takes less than a minute of your time.</p>
-        <div className="fcta-btns mt-10 flex flex-wrap items-center justify-center gap-4">
+        <p className="fcta-sub mt-4 sm:mt-6 text-white/65 text-base sm:text-xl md:text-2xl">It takes less than a minute of your time.</p>
+        <div className="fcta-btns mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <MagneticElement strength={0.25} radius={80}>
             <PrismButton href="/contact">Request a Quote</PrismButton>
           </MagneticElement>

@@ -267,13 +267,13 @@ export default function HomeIntros() {
 
   return (
     <section className="bg-ink text-white overflow-x-clip">
-      <div className="max-w-container mx-auto px-6 lg:px-10 py-28 lg:py-40">
-        <div className="max-w-3xl mb-20 lg:mb-28">
-          <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-5">The Studio</div>
-          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight text-white">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-28 lg:py-40">
+        <div className="max-w-3xl mb-12 sm:mb-20 lg:mb-28">
+          <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4 sm:mb-5 font-mono">The Studio</div>
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight text-white">
             Eight rooms in one studio. Step into any of them.
           </h2>
-          <p className="mt-6 text-xl text-white/70 leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-base sm:text-xl text-white/70 leading-relaxed">
             A short tour of what we do, how we do it, who we do it with, and
             how to start a conversation. Each section opens into a deeper,
             written-out page.
@@ -331,10 +331,10 @@ export default function HomeIntros() {
                 )}
 
                 <div className="intro-copy">
-                  <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-5">
+                  <div className="text-[11px] sm:text-xs uppercase tracking-[0.3em] text-white/50 mb-3 sm:mb-5 font-mono">
                     {it.eyebrow}
                   </div>
-                  <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.04] tracking-tight text-white">
+                  <h3 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-white">
                     {it.title}
                   </h3>
                   <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">

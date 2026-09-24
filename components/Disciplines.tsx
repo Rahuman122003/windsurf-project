@@ -101,24 +101,23 @@ export default function Disciplines() {
                 // 50% smaller than before (was w-[60%]). object-contain so the
                 // prox artwork breathes; right-aligned, vertically centred via
                 // translate baked into inline transform (inline beats className).
-                className="absolute right-[4%] top-1/2 h-[60%] w-[30%] object-contain transition-opacity duration-500 ease-out"
+                className="absolute right-0 lg:right-[4%] top-1/2 h-[45%] w-[50%] lg:w-[30%] lg:h-[60%] object-contain transition-opacity duration-500 ease-out"
                 style={{
-                  opacity: i === active ? 1 : 0,
+                  opacity: i === active ? (typeof window !== "undefined" && window.innerWidth < 1024 ? 0.25 : 1) : 0,
                   willChange: "opacity",
                   transform: "translate3d(0,-50%,0)",
                 }}
               />
             ))}
-            {/* Single gradient overlay does the fade-into-dark vignette
-                cheaply (replaces per-image mask). */}
-            <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-transparent" />
+            {/* Single gradient overlay does the fade-into-dark vignette */}
+            <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/40 lg:to-transparent" />
           </div>
 
           {/* Content — text stack cross-fades */}
-          <div className="relative z-10 h-full max-w-container mx-auto px-6 lg:px-10 flex items-center">
+          <div className="relative z-10 h-full max-w-container mx-auto px-4 sm:px-6 lg:px-10 flex items-center">
             <div className="w-full max-w-3xl">
               {/* Eyebrow */}
-              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/60 mb-8">
+              <div className="flex items-center gap-3 text-[11px] sm:text-xs uppercase tracking-[0.3em] text-white/60 mb-6 sm:mb-8 font-mono">
                 <span>What we do</span>
                 <span className="opacity-50">
                   {String(active + 1).padStart(2, "0")} /{" "}
@@ -127,7 +126,7 @@ export default function Disciplines() {
               </div>
 
               {/* Stacked titles — only active one is visible */}
-              <div className="relative" style={{ minHeight: "clamp(120px, 18vw, 240px)" }}>
+              <div className="relative" style={{ minHeight: "clamp(60px, 12vw, 200px)" }}>
                 {items.map((it, i) => (
                   <h2
                     key={i}
@@ -136,7 +135,7 @@ export default function Disciplines() {
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-6"
                     }`}
-                    style={{ fontSize: "clamp(72px, 12vw, 200px)" }}
+                    style={{ fontSize: "clamp(38px, 10vw, 180px)" }}
                   >
                     {it.title}
                   </h2>
@@ -144,11 +143,11 @@ export default function Disciplines() {
               </div>
 
               {/* Stacked bodies */}
-              <div className="relative mt-8" style={{ minHeight: "9rem" }}>
+              <div className="relative mt-6 sm:mt-8" style={{ minHeight: "6rem" }}>
                 {items.map((it, i) => (
                   <p
                     key={i}
-                    className={`absolute inset-0 max-w-xl text-lg md:text-xl text-white/75 leading-relaxed transition-all duration-700 ease-out ${
+                    className={`absolute inset-0 max-w-xl text-base sm:text-lg md:text-xl text-white/75 leading-relaxed transition-all duration-700 ease-out ${
                       i === active
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-4"
@@ -159,19 +158,19 @@ export default function Disciplines() {
                 ))}
               </div>
 
-              <div className="mt-12">
+              <div className="mt-8 sm:mt-12">
                 <PrismButton href="/services" variant="link">
                   Learn more
                 </PrismButton>
               </div>
 
               {/* Step indicator dots */}
-              <div className="mt-14 flex items-center gap-3">
+              <div className="mt-8 sm:mt-14 flex items-center gap-2.5 sm:gap-3">
                 {items.map((_, k) => (
                   <span
                     key={k}
                     className={`h-1.5 rounded-full transition-all duration-500 ${
-                      k === active ? "w-10 bg-white" : "w-4 bg-white/30"
+                      k === active ? "w-8 sm:w-10 bg-white" : "w-3 sm:w-4 bg-white/30"
                     }`}
                   />
                 ))}

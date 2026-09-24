@@ -102,7 +102,7 @@ export default function ProjectEstimator() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
               3. Team Composition
             </h3>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => setTeamTier("senior")}
                 className={`flex-1 p-4 rounded-xl border text-sm font-medium transition-all ${
@@ -129,7 +129,7 @@ export default function ProjectEstimator() {
           </div>
         </div>
 
-        <div className="lg:col-span-6 bg-black/60 border border-white/15 rounded-3xl p-8 md:p-10 backdrop-blur-xl relative flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-black/60 border border-white/15 rounded-3xl p-6 sm:p-8 md:p-10 backdrop-blur-xl relative flex flex-col justify-between">
           <div className="space-y-6">
             <div className="flex justify-between items-center border-b border-white/10 pb-4">
               <span className="text-white/60 text-sm">Estimated Delivery</span>

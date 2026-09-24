@@ -1,6 +1,6 @@
 "use client";
-import { Linkedin, Youtube, Instagram, Facebook, Dribbble, Twitter, Mail, Phone } from "lucide-react";
-import logoDark from "@/assets/blyndarklogo.png";
+import { Linkedin, Youtube, Instagram, Facebook, Dribbble, Twitter, Mail } from "lucide-react";
+import logoLight from "@/assets/blyndarklogo.png";
 
 type FooterLink = { label: string; href: string };
 const cols: { title: string; links: FooterLink[] }[] = [
@@ -35,22 +35,22 @@ const cols: { title: string; links: FooterLink[] }[] = [
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-white">
-      <div className="max-w-container mx-auto px-6 lg:px-10 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
-          <div className="col-span-2 md:col-span-1">
-            <img src={logoDark.src} alt="Blyn" className="h-10 w-auto" />
-            <p className="mt-4 text-sm text-white/60 leading-relaxed">
+    <footer className="bg-ink text-white border-t border-white/10">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-12 sm:mb-14">
+          <div className="sm:col-span-2 md:col-span-1">
+            <img src={logoLight.src} alt="Blyn" className="h-14 sm:h-19 w-auto" />
+            <p className="mt-4 text-sm text-white/60 leading-relaxed max-w-sm">
               A premium digital agency crafting cinematic products and brand experiences.
             </p>
           </div>
           {cols.map((c) => (
             <div key={c.title}>
-              <div className="text-xs uppercase tracking-[0.25em] text-white/50 mb-5">{c.title}</div>
-              <ul className="space-y-3">
+              <div className="text-xs uppercase tracking-[0.25em] text-white/50 font-mono mb-4 sm:mb-5">{c.title}</div>
+              <ul className="space-y-2.5 sm:space-y-3">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href} className="nav-link text-[15px] text-white/85 hover:text-white">{l.label}</a>
+                    <a href={l.href} className="nav-link text-sm sm:text-[15px] text-white/85 hover:text-white transition-colors">{l.label}</a>
                   </li>
                 ))}
               </ul>
@@ -58,11 +58,11 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 py-8 border-t border-white/10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 py-6 sm:py-8 border-t border-white/10">
           <div className="flex flex-wrap items-center gap-4 text-sm text-white/70">
-            <a href="mailto:info@blyntech.com" className="inline-flex items-center gap-2 hover:text-white font-mono"><Mail size={16}/> info@blyntech.com</a>
+            <a href="mailto:info@blyntech.com" className="inline-flex items-center gap-2 hover:text-white font-mono text-xs sm:text-sm"><Mail size={16} className="text-accent"/> info@blyntech.com</a>
           </div>
-          <div className="flex md:justify-end items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
             {[
               { Icon: Linkedin, href: "https://www.linkedin.com/", label: "LinkedIn" },
               { Icon: Youtube, href: "https://www.youtube.com/", label: "YouTube" },
@@ -77,22 +77,23 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-ink transition"
+                className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-ink transition-colors duration-200"
               >
-                <Icon size={16} />
+                <Icon size={15} />
               </a>
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between gap-4 pt-8 border-t border-white/10 text-xs text-white/50">
+        <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 sm:pt-8 border-t border-white/10 text-xs text-white/50">
           <div>© {new Date().getFullYear()} Blyn. All rights reserved.</div>
           <div className="flex gap-6">
-            <a href="/contact" className="hover:text-white">Privacy Policy</a>
-            <a href="/contact" className="hover:text-white">Terms</a>
+            <a href="/contact" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/contact" className="hover:text-white transition-colors">Terms</a>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+

@@ -116,12 +116,12 @@ export default function CaseStudies() {
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-12 border-b border-white/10 pb-6">
+        <div className="flex overflow-x-auto gap-2 mb-8 sm:mb-12 border-b border-white/10 pb-4 sm:pb-6 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveTab(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+              className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
                 activeTab === cat
                   ? "bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.25)]"
                   : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
