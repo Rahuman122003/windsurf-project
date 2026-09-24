@@ -1,11 +1,15 @@
-import { ArrowUpRight } from "lucide-react";
+"use client";
+import { useState } from "react";
+import { ArrowUpRight, BookOpen, Filter, Mail } from "lucide-react";
 import PageShell, { DetailSection } from "@/components/PageShell";
 import FooterCTA from "@/components/FooterCTA";
+import RevealText from "@/components/RevealText";
+import Parallax, { ParallaxCard } from "@/components/Parallax";
+import SlideReveal from "@/components/SlideReveal";
+import StaggerGrid from "@/components/StaggerGrid";
+import MagneticElement from "@/components/MagneticElement";
 
-export const metadata = {
-  title: "Insights — Blyn",
-  description: "Long-form field notes on craft, applied AI, design systems and the future of brand experience — written by the people doing the work.",
-};
+const categories = ["All", "Applied AI", "Design Systems", "Brand", "Engineering", "Research", "Strategy", "Culture"];
 
 const featured = {
   category: "Applied AI",
@@ -68,6 +72,13 @@ const articles = [
 ];
 
 export default function InsightsPage() {
+  const [activeCat, setActiveCat] = useState("All");
+
+  const filteredArticles =
+    activeCat === "All"
+      ? articles
+      : articles.filter((a) => a.cat.toLowerCase() === activeCat.toLowerCase());
+
   return (
     <>
       <PageShell
@@ -75,69 +86,139 @@ export default function InsightsPage() {
         title="Field notes from people doing the work."
         lede="No thought-leadership theatre. These are practical, opinionated essays — usually born out of something we got wrong on a real project — published on a roughly monthly cadence."
       >
-        <DetailSection eyebrow="Featured">
-          <a href="/contact" className="group grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <img
-                src={featured.img}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
-              />
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-[0.25em] text-white/50">
-                {featured.category} · {featured.readTime}
-              </div>
-              <h3 className="mt-4 font-display text-3xl md:text-5xl font-extrabold leading-[1.05]">
-                {featured.title}
-              </h3>
-              <p className="mt-6 text-white/70 text-lg leading-relaxed max-w-xl">{featured.excerpt}</p>
-              <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold">
-                Read essay <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
-              </span>
-            </div>
-          </a>
-        </DetailSection>
-
-        <DetailSection eyebrow="Library" title="More from the team.">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {articles.map((a) => (
-              <a key={a.title} href="/contact" className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                  <img
-                    src={a.img}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]"
-                  />
+        {/* Featured Article with Hero Parallax + Slide Reveal */}
+        <DetailSection eyebrow="Featured Essay">
+          <SlideReveal direction="left" distance={100}>
+            <ParallaxCard depth={0.2}>
+              <a
+                href="/contact"
+                className="group grid lg:grid-cols-2 gap-10 lg:gap-16 items-center rounded-3xl border border-white/15 bg-white/5 p-8 lg:p-10 hover:border-white/40 transition-all duration-500 shadow-2xl"
+                data-cursor="ESSAY"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-ink">
+                  <Parallax speed={0.2} scale>
+                    <img
+                      src={featured.img}
+                      alt={featured.title}
+                      className="h-full w-full object-cover transition-transform duration-[1000ms] group-hover:scale-110"
+                    />
+                  </Parallax>
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <div className="mt-5 text-xs uppercase tracking-[0.25em] text-white/50">
-                  {a.cat} · {a.time}
+                <div>
+                  <div className="text-xs uppercase tracking-[0.25em] text-accent font-mono mb-3">
+                    {featured.category} · {featured.readTime}
+                  </div>
+                  <RevealText text={featured.title} as="h3" className="font-display text-3xl md:text-5xl font-extrabold leading-[1.05]" />
+                  <p className="mt-6 text-white/70 text-base md:text-lg leading-relaxed">{featured.excerpt}</p>
+                  <MagneticElement className="inline-block mt-8" strength={0.3} radius={80}>
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-accent transition-colors">
+                      Read essay <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
+                    </span>
+                  </MagneticElement>
                 </div>
-                <h4 className="mt-3 font-display text-xl md:text-2xl font-bold leading-snug group-hover:text-white">
-                  {a.title}
-                </h4>
-                <p className="mt-3 text-white/65 leading-relaxed">{a.excerpt}</p>
               </a>
-            ))}
-          </div>
+            </ParallaxCard>
+          </SlideReveal>
         </DetailSection>
 
-        <DetailSection eyebrow="Subscribe" title="One essay a month. No newsletters about our newsletter.">
-          <form className="flex flex-col sm:flex-row gap-4 max-w-xl">
-            <input
-              type="email"
-              required
-              placeholder="you@company.com"
-              className="flex-1 bg-transparent border border-white/20 rounded-full px-5 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white transition-colors"
-            />
-            <button
-              type="submit"
-              className="rounded-full bg-white text-ink px-6 py-3 font-semibold hover:bg-white/90 transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
+        {/* Filterable Articles Grid with Stagger */}
+        <DetailSection eyebrow="Library" title="More from the team.">
+          <SlideReveal direction="right" distance={60}>
+            <div className="flex flex-wrap gap-3 items-center mb-12">
+              <span className="text-white/40 text-xs uppercase tracking-widest flex items-center gap-2 mr-2">
+                <Filter size={14} /> Topic:
+              </span>
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setActiveCat(c)}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
+                    activeCat === c
+                      ? "bg-white text-ink shadow-lg scale-105"
+                      : "bg-white/5 text-white/70 hover:bg-white/15 hover:text-white border border-white/10"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </SlideReveal>
+
+          <StaggerGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" stagger={0.12}>
+            {filteredArticles.map((a, idx) => (
+              <ParallaxCard key={a.title} depth={0.15 + (idx % 3) * 0.05}>
+                <a
+                  href="/contact"
+                  className="group block rounded-2xl border border-white/15 bg-white/5 p-6 hover:border-white/40 transition-all duration-500 h-full flex flex-col justify-between"
+                  data-cursor="READ"
+                >
+                  <div>
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-ink mb-6">
+                      <Parallax speed={0.2} scale>
+                        <img
+                          src={a.img}
+                          alt={a.title}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-[800ms] group-hover:scale-110"
+                        />
+                      </Parallax>
+                      {/* Category badge */}
+                      <span className="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-ink/80 backdrop-blur-md text-white border border-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider">
+                        <BookOpen size={10} className="text-accent" /> {a.cat}
+                      </span>
+                    </div>
+                    <div className="text-xs uppercase tracking-[0.25em] text-accent font-mono">
+                      {a.cat} · {a.time}
+                    </div>
+                    <h4 className="mt-3 font-display text-xl md:text-2xl font-bold leading-snug group-hover:text-white transition-colors">
+                      {a.title}
+                    </h4>
+                    <p className="mt-3 text-white/65 text-sm leading-relaxed">{a.excerpt}</p>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/50">
+                    <span>Read Article</span>
+                    <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </div>
+                </a>
+              </ParallaxCard>
+            ))}
+          </StaggerGrid>
+        </DetailSection>
+
+        {/* Newsletter Reveal Section */}
+        <DetailSection eyebrow="Subscribe" title="One essay a month. No spam.">
+          <SlideReveal direction="up" distance={80}>
+            <div className="rounded-3xl border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 p-8 lg:p-12 relative overflow-hidden">
+              {/* Floating decorative orbs */}
+              <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-44 h-44 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
+
+              <div className="max-w-xl relative z-10">
+                <p className="text-white/80 text-base leading-relaxed mb-8">
+                  Join 14,000+ founders, designers and engineers receiving our field notes on craft and AI.
+                </p>
+                <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-4">
+                  <input
+                    type="email"
+                    required
+                    placeholder="you@company.com"
+                    className="flex-1 bg-ink/80 border border-white/25 rounded-full px-6 py-3.5 text-white placeholder-white/40 focus:outline-none focus:border-white transition-colors text-sm"
+                  />
+                  <MagneticElement strength={0.25} radius={60}>
+                    <button
+                      type="submit"
+                      className="rounded-full bg-white text-ink px-8 py-3.5 font-semibold hover:bg-white/90 transition-colors text-sm shrink-0 flex items-center justify-center gap-2"
+                    >
+                      <Mail size={16} /> Subscribe
+                    </button>
+                  </MagneticElement>
+                </form>
+              </div>
+            </div>
+          </SlideReveal>
         </DetailSection>
       </PageShell>
       <FooterCTA />

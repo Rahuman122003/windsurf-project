@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import PageHero from "./PageHero";
 import SectionReveal from "./SectionReveal";
+import RevealText from "./RevealText";
 
 type Props = {
   eyebrow: string;
@@ -40,9 +41,11 @@ export function DetailSection({
         <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">{eyebrow}</div>
       )}
       {title && (
-        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mb-12">
-          {title}
-        </h2>
+        <RevealText
+          text={title}
+          as="h2"
+          className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mb-12"
+        />
       )}
       {children}
     </section>

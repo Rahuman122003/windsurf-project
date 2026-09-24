@@ -1,13 +1,12 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
+  const [cursorText, setCursorText] = useState("");
 
   useEffect(() => {
-    // Touch devices already hide the cursor via CSS — avoid running the RAF
-    // loop and listeners on mobile/tablet entirely.
     if (
       typeof window === "undefined" ||
       window.matchMedia("(hover: none) and (pointer: coarse)").matches
@@ -17,10 +16,16 @@ export default function CustomCursor() {
     const dotEl = dot.current;
     const ringEl = ring.current;
     if (!dotEl || !ringEl) return;
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    let mx = 0,
+      my = 0,
+      rx = 0,
+      ry = 0;
 
-    // Only update mouse coords on move; all DOM writes happen in a single RAF
-    const onMove = (e: MouseEvent) => { mx = e.clientX; my = e.clientY; };
+    const onMove = (e: MouseEvent) => {
+      mx = e.clientX;
+      my = e.clientY;
+    };
+
     const tick = () => {
       rx += (mx - rx) * 0.18;
       ry += (my - ry) * 0.18;
@@ -32,8 +37,24 @@ export default function CustomCursor() {
 
     const onOver = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      if (t.closest("a,button,[data-hover]")) ringEl.classList.add("is-hover");
-      else ringEl.classList.remove("is-hover");
+      const hoverEl = t.closest<HTMLElement>(
+        "a,button,[data-hover],[data-cursor]"
+      );
+
+      if (hoverEl) {
+        ringEl.classList.add("is-hover");
+        const customText = hoverEl.getAttribute("data-cursor");
+        if (customText) {
+          setCursorText(customText);
+          ringEl.classList.add("has-text");
+        } else {
+          setCursorText("");
+          ringEl.classList.remove("has-text");
+        }
+      } else {
+        ringEl.classList.remove("is-hover", "has-text");
+        setCursorText("");
+      }
     };
 
     window.addEventListener("mousemove", onMove);
@@ -48,7 +69,13 @@ export default function CustomCursor() {
   return (
     <>
       <div ref={dot} className="cursor-dot" />
-      <div ref={ring} className="cursor-ring" />
+      <div ref={ring} className="cursor-ring">
+        {cursorText && (
+          <span className="text-[10px] font-bold uppercase tracking-widest text-white select-none pointer-events-none">
+            {cursorText}
+          </span>
+        )}
+      </div>
     </>
   );
 }

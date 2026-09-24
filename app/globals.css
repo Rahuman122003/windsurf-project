@@ -602,10 +602,11 @@ section.bg-ink { position: relative; }
 }
 
 /* Custom cursor (mix-blend-mode removed — caused full-screen recomposite on every move) */
-.cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; border-radius: 9999px; will-change: transform; }
+.cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; border-radius: 9999px; will-change: transform; display: flex; align-items: center; justify-content: center; }
 .cursor-dot { width: 6px; height: 6px; background: #fff; transform: translate(-50%, -50%); }
-.cursor-ring { width: 36px; height: 36px; border: 1px solid #fff; transform: translate(-50%, -50%); transition: width .25s, height .25s, background .25s; }
-.cursor-ring.is-hover { width: 60px; height: 60px; background: rgba(255,255,255,0.08); }
+.cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.6); transform: translate(-50%, -50%); transition: width .25s ease, height .25s ease, background .25s ease, border-color .25s ease; backdrop-filter: blur(2px); }
+.cursor-ring.is-hover { width: 56px; height: 56px; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.9); }
+.cursor-ring.has-text { width: 72px; height: 72px; background: rgba(10,13,18,0.85); border-color: rgba(255,255,255,0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
 
 @media (max-width: 1024px) {
   .cursor-dot, .cursor-ring { display: none; }
@@ -628,4 +629,40 @@ section.bg-ink { position: relative; }
 .intro-slide .intro-copy {
   will-change: transform, opacity;
   transform: translateZ(0);
+}
+
+/* Magnetic element — GPU promote */
+[data-magnetic] { will-change: transform; }
+
+/* Stagger grid items — start invisible until GSAP takes over */
+.stagger-grid > * { visibility: hidden; }
+
+/* Line mask reveal clips */
+.lmr-line { will-change: transform; }
+
+/* Cursor text label inside ring */
+.cursor-ring .cursor-label {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.95);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Section separator accents */
+.section-accent-line {
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+  transform-origin: left;
+}
+
+/* Smooth card hover lift */
+[data-cursor] {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+[data-cursor]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }

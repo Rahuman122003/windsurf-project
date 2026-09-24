@@ -4,10 +4,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
- * Reveals every direct child of a section as it scrolls into view —
- * gentle horizontal slide + blur clear. Used by PageShell to give every
- * detail page (work, services, stories, insights, careers) a consistent
- * scroll-driven entrance.
+ * Clean, smooth section reveal wrapper.
+ * Fades + gently lifts sections into place as they enter viewport
+ * without colliding with child horizontal slide animations.
  */
 export default function SectionReveal({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,20 +18,18 @@ export default function SectionReveal({ children }: { children: ReactNode }) {
 
     const ctx = gsap.context(() => {
       const sections = Array.from(root.querySelectorAll<HTMLElement>("section"));
-      sections.forEach((section, i) => {
-        const fromX = i % 2 === 0 ? -60 : 60;
+      sections.forEach((section) => {
         gsap.fromTo(
           section,
-          { x: fromX, autoAlpha: 0, filter: "blur(8px)" },
+          { autoAlpha: 0, y: 25 },
           {
-            x: 0,
             autoAlpha: 1,
-            filter: "blur(0px)",
-            duration: 1.1,
-            ease: "power4.out",
+            y: 0,
+            duration: 0.9,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 82%",
+              start: "top 88%",
               toggleActions: "play none none reverse",
             },
           }

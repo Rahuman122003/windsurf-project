@@ -60,8 +60,7 @@ export default function Footer() {
 
         <div className="grid md:grid-cols-2 gap-6 py-8 border-t border-white/10">
           <div className="flex flex-wrap items-center gap-4 text-sm text-white/70">
-            <a href="mailto:hello@blyn.co" className="inline-flex items-center gap-2 hover:text-white"><Mail size={16}/> hello@blyn.co</a>
-            <a href="tel:+10000000000" className="inline-flex items-center gap-2 hover:text-white"><Phone size={16}/> +1 (000) 000-0000</a>
+            <a href="mailto:info@blyntech.com" className="inline-flex items-center gap-2 hover:text-white font-mono"><Mail size={16}/> info@blyntech.com</a>
           </div>
           <div className="flex md:justify-end items-center gap-3">
             {[

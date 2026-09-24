@@ -7,6 +7,8 @@ import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import FooterReveal from "@/components/FooterReveal";
 import RouteTransition from "@/components/RouteTransition";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import Preloader from "@/components/Preloader";
 
 const spartan = League_Spartan({
   subsets: ["latin"],
@@ -32,6 +34,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-sans">
+        <Preloader />
+        <ScrollProgressBar />
         <SmoothScroll />
         <CustomCursor />
         <Nav />

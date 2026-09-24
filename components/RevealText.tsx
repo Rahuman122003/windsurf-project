@@ -1,54 +1,57 @@
 "use client";
-import { useEffect, useRef } from "react";
+import BlurText from "./BlurText";
+import { type ElementType } from "react";
 
-type Props = {
+type RevealTextProps = {
   text: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   className?: string;
+  mode?: "word" | "char" | "line";
+  stagger?: number;
+  delay?: number;
+  direction?: "top" | "bottom";
 };
 
-export default function RevealText({ text, as = "h2", className = "" }: Props) {
-  const ref = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const reveal = () => el.querySelectorAll(".word-mask").forEach((w) => w.classList.add("is-in"));
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            reveal();
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-    );
-    io.observe(el);
-
-    // Failsafe: if anything goes wrong (sticky / smooth-scroll edge cases),
-    // make sure text becomes visible.
-    const t = window.setTimeout(() => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) reveal();
-    }, 1400);
-
-    return () => {
-      io.disconnect();
-      clearTimeout(t);
-    };
-  }, []);
-
-  const Tag = as as any;
+export default function RevealText({
+  text,
+  as: Component = "h2",
+  className = "",
+  mode = "word",
+  stagger = 0.03,
+  delay = 0,
+  direction = "bottom",
+}: RevealTextProps) {
   return (
-    <Tag ref={ref as any} className={className}>
-      {text.split(" ").map((w, i) => (
-        <span key={i} className="word-mask">
-          <span style={{ transitionDelay: `${i * 60}ms` }}>{w}</span>
-        </span>
-      ))}
-    </Tag>
+    <BlurText
+      text={text}
+      as={Component}
+      className={className}
+      animateBy={mode === "char" ? "letters" : "words"}
+      direction={direction}
+      delay={stagger * 1000}
+      stepDuration={0.35}
+    />
+  );
+}
+
+/**
+ * Scroll Highlight Text — uses BlurText with word-level blur reveal
+ */
+export function ScrollHighlightText({
+  text,
+  className = "",
+}: {
+  text: string;
+  className?: string;
+}) {
+  return (
+    <BlurText
+      text={text}
+      className={className}
+      animateBy="words"
+      direction="bottom"
+      delay={60}
+      stepDuration={0.4}
+    />
   );
 }
