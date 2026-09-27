@@ -39,7 +39,7 @@ export default function Footer() {
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-12 sm:mb-14">
           <div className="sm:col-span-2 md:col-span-1">
-            <img src={logoLight.src} alt="Blyn" className="h-14 sm:h-19 w-auto" />
+            <img src={logoLight.src} alt="Blyn" className="h-20 sm:h-24 w-auto object-contain" />
             <p className="mt-4 text-sm text-white/60 leading-relaxed max-w-sm">
               A premium digital agency crafting cinematic products and brand experiences.
             </p>

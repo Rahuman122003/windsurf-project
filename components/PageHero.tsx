@@ -8,19 +8,21 @@ type Props = {
   eyebrow: string;
   title: string;
   lede: string;
+  videoSrc?: string;
+  rotateVideoLeft?: boolean;
 };
 
 /**
- * Cinematic page hero used by every detail route (/work, /services, etc.).
+ * Cinematic page hero used by detail routes (/work, /services, /stories, etc.).
  *
  * Composition:
- *  • WebGL aurora backdrop (shared `ProxWebGL` shader) with an ink scrim.
+ *  • Video background (or WebGL aurora backdrop if no video) with ink scrim overlay.
  *  • Char-split headline — each character slides up + un-blurs on mount.
  *  • Lede fades up on scroll.
  *  • Subtle parallax on the whole hero.
  *  • Floating decorative particles for depth.
  */
-export default function PageHero({ eyebrow, title, lede }: Props) {
+export default function PageHero({ eyebrow, title, lede, videoSrc, rotateVideoLeft }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -104,24 +106,73 @@ export default function PageHero({ eyebrow, title, lede }: Props) {
   }, []);
 
   return (
-    <div ref={rootRef} className="relative overflow-hidden">
-      {/* WebGL aurora backdrop */}
-      <div className="absolute inset-0 z-0 opacity-90" aria-hidden>
-        <ProxWebGL />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink" />
+    <div ref={rootRef} className="relative overflow-hidden min-h-[80vh] md:min-h-[88vh] lg:min-h-[92vh] flex flex-col justify-center">
+      {/* Background Video or WebGL backdrop */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden>
+        {videoSrc ? (
+          <div className="relative w-full h-full overflow-hidden bg-ink flex items-center justify-center">
+            <video
+              key={videoSrc}
+              src={videoSrc}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              controlsList="nodownload"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target && !target.dataset.retried) {
+                  target.dataset.retried = "true";
+                  target.src = `${videoSrc}?v=${Date.now()}`;
+                  target.load();
+                  target.play().catch(() => {});
+                }
+              }}
+              style={
+                rotateVideoLeft
+                  ? {
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      width: "120vh",
+                      height: "120vw",
+                      minWidth: "140%",
+                      minHeight: "140%",
+                      transform: "translate(-50%, -50%) rotate(-90deg) scale(1.5)",
+                      objectFit: "cover",
+                    }
+                  : {
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }
+              }
+              className="pointer-events-none"
+            />
+          </div>
+        ) : (
+          <div className="w-full h-full opacity-90 relative">
+            <ProxWebGL />
+          </div>
+        )}
+        {/* Dark overlay scrim for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/60 to-ink pointer-events-none z-[1]" />
       </div>
 
       {/* Floating decorative dots */}
-      <div className="ph-dot absolute top-[20%] left-[10%] w-1.5 h-1.5 rounded-full bg-white/15 z-[5]" />
-      <div className="ph-dot absolute top-[40%] right-[15%] w-1 h-1 rounded-full bg-white/10 z-[5]" />
-      <div className="ph-dot absolute bottom-[30%] left-[60%] w-2 h-2 rounded-full bg-white/8 z-[5]" />
+      <div className="ph-dot absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-white/20 z-[5]" />
+      <div className="ph-dot absolute top-[40%] right-[15%] w-1.5 h-1.5 rounded-full bg-white/15 z-[5]" />
+      <div className="ph-dot absolute bottom-[30%] left-[60%] w-2.5 h-2.5 rounded-full bg-white/10 z-[5]" />
 
-      <section className="relative z-10 pt-32 sm:pt-40 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-10 max-w-container mx-auto">
-        <div className="ph-eyebrow text-[11px] sm:text-xs uppercase tracking-[0.3em] text-white/60 mb-4 sm:mb-6 font-mono">
+      <section className="relative z-10 pt-40 sm:pt-48 md:pt-56 pb-24 sm:pb-32 lg:pb-40 px-4 sm:px-6 lg:px-10 max-w-container mx-auto w-full">
+        <div className="ph-eyebrow text-xs sm:text-sm uppercase tracking-[0.35em] text-accent font-semibold mb-4 sm:mb-6 font-mono">
           {eyebrow}
         </div>
         <h1
-          className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight break-words"
+          className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-extrabold leading-[1.02] tracking-tight break-words"
           style={{ perspective: 900 }}
         >
           {title.split("").map((ch, i) => (
@@ -136,9 +187,9 @@ export default function PageHero({ eyebrow, title, lede }: Props) {
         </h1>
 
         {/* Decorative accent line */}
-        <div className="ph-decor-line mt-4 sm:mt-6 h-[2px] w-16 sm:w-24 bg-gradient-to-r from-accent to-transparent origin-left" />
+        <div className="ph-decor-line mt-6 sm:mt-8 h-[3px] w-20 sm:w-32 bg-gradient-to-r from-accent via-white/50 to-transparent origin-left" />
 
-        <p className="ph-lede mt-6 sm:mt-8 text-base sm:text-xl md:text-2xl text-white/75 max-w-3xl leading-relaxed">
+        <p className="ph-lede mt-8 sm:mt-10 text-lg sm:text-2xl md:text-3xl text-white/80 max-w-4xl leading-relaxed font-light">
           {lede}
         </p>
       </section>

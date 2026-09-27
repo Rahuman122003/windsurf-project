@@ -7,6 +7,8 @@ type Props = {
   eyebrow: string;
   title: string;
   lede: string;
+  videoSrc?: string;
+  rotateVideoLeft?: boolean;
   children: ReactNode;
 };
 
@@ -15,10 +17,23 @@ type Props = {
  * Cinematic hero (WebGL aurora + char-split title) and scroll-reveal
  * for every nested `<section>` (DetailSection) inside `children`.
  */
-export default function PageShell({ eyebrow, title, lede, children }: Props) {
+export default function PageShell({
+  eyebrow,
+  title,
+  lede,
+  videoSrc,
+  rotateVideoLeft,
+  children,
+}: Props) {
   return (
     <div className="bg-ink text-white min-h-screen overflow-x-clip">
-      <PageHero eyebrow={eyebrow} title={title} lede={lede} />
+      <PageHero
+        eyebrow={eyebrow}
+        title={title}
+        lede={lede}
+        videoSrc={videoSrc}
+        rotateVideoLeft={rotateVideoLeft}
+      />
       <SectionReveal>{children}</SectionReveal>
     </div>
   );

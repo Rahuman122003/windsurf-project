@@ -83,8 +83,8 @@ export default function InsightsPage() {
     <>
       <PageShell
         eyebrow="Insights"
-        title="Field notes from people doing the work."
-        lede="No thought-leadership theatre. These are practical, opinionated essays — usually born out of something we got wrong on a real project — published on a roughly monthly cadence."
+        title="Field notes from the team."
+        lede="Practical essays and honest learnings born from real project experience."
       >
         {/* Featured Article with Hero Parallax + Slide Reveal */}
         <DetailSection eyebrow="Featured Essay">

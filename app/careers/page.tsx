@@ -91,8 +91,8 @@ export default function CareersPage() {
     <>
       <PageShell
         eyebrow="Careers"
-        title="Build a career, not a portfolio."
-        lede="We are a small studio of operators — designers, engineers, strategists and AI practitioners — who care about craft, kindness and the boring parts of shipping. Here's how we hire, what we offer, and what it's like to actually work here."
+        title="Build craft with operators."
+        lede="A studio of designers, engineers, and AI practitioners obsessed with shipping."
       >
         {/* Culture Photo Parallax Wall with Stagger */}
         <DetailSection eyebrow="Culture" className="!pt-4">

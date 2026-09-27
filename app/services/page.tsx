@@ -104,8 +104,9 @@ export default function ServicesPage() {
     <>
       <PageShell
         eyebrow="What We Do"
-        title="One studio. Six disciplines. Zero handoffs."
-        lede="We don't pass briefs between silos. Strategists, designers, engineers and AI practitioners sit in the same room, on the same problem, every day. Here's the detailed breakdown of every capability we offer and how we package them."
+        title="Six disciplines. Zero handoffs."
+        lede="Strategists, designers, engineers, and AI builders working in unison."
+        videoSrc="/serviceshero.mp4"
       >
         {/* Capability Deck Layout */}
         <DetailSection eyebrow="Capabilities" title="Every craft we practice — explained in detail.">

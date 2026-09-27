@@ -57,8 +57,9 @@ export default function StoriesPage() {
     <>
       <PageShell
         eyebrow="Client Stories"
-        title="The operators behind the work."
-        lede="Numbers tell part of the story. The rest is in the relationships — long, candid, and built on the assumption that we will still be working together two years from now."
+        title="Stories from our partners."
+        lede="Candid feedback and long-term relationships built on real outcomes."
+        videoSrc="/storieshero.mp4"
       >
         {/* Animated Numeric Rollup Stats with Stagger */}
         <DetailSection eyebrow="By the numbers">

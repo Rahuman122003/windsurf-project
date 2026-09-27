@@ -109,8 +109,9 @@ export default function WorkPage() {
     <>
       <PageShell
         eyebrow="Selected Work"
-        title="Cinematic products, measured by outcomes."
-        lede="Every engagement we take on is a partnership — long, deliberate, and obsessed with shipping. Below is a curated set of the things we've made and the numbers they moved."
+        title="Products measured by outcomes."
+        lede="Curated work built with long-term partnership and shipping obsession."
+        videoSrc="/workhero.mp4"
       >
         <DetailSection eyebrow="Filter Showcase" className="!pt-4">
           {/* Category Filter Pills */}

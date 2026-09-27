@@ -116,7 +116,7 @@ export default function Nav() {
       </div>
 
       <div className="relative max-w-container mx-auto px-4 sm:px-6 lg:px-10 h-20 flex items-center justify-between z-50">
-        <Link href="/" className="relative block h-11 sm:h-12 w-[140px] sm:w-[155px]" aria-label="Blyn home">
+        <Link href="/" className="relative block h-14 sm:h-16 w-[170px] sm:w-[200px]" aria-label="Blyn home">
           {/* Light logo (white logo for dark background) */}
           <img
             src={logoLight.src}
