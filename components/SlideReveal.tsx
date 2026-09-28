@@ -32,10 +32,13 @@ export default function SlideReveal({
     let fromX = 0;
     let fromY = 0;
 
-    if (direction === "left") fromX = -distance;
-    else if (direction === "right") fromX = distance;
-    else if (direction === "up") fromY = distance;
-    else if (direction === "down") fromY = -distance;
+    const isSmall = typeof window !== "undefined" && window.innerWidth < 768;
+    const effectiveDistance = isSmall ? Math.min(distance, 30) : distance;
+
+    if (direction === "left") fromX = -effectiveDistance;
+    else if (direction === "right") fromX = effectiveDistance;
+    else if (direction === "up") fromY = effectiveDistance;
+    else if (direction === "down") fromY = -effectiveDistance;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -44,7 +47,7 @@ export default function SlideReveal({
           x: fromX,
           y: fromY,
           opacity: 0,
-          filter: "blur(10px)",
+          filter: "blur(6px)",
         },
         {
           x: 0,
@@ -57,7 +60,7 @@ export default function SlideReveal({
           scrollTrigger: {
             trigger: el,
             start: "top 88%",
-            toggleActions: "play none none reverse",
+            once: true,
           },
         }
       );

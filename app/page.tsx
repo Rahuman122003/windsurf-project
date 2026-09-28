@@ -3,11 +3,10 @@ import TextReveal from "@/components/TextReveal";
 import Disciplines from "@/components/Disciplines";
 import HomeIntros from "@/components/HomeIntros";
 import CaseStudies from "@/components/CaseStudies";
-import Testimonials from "@/components/Testimonials";
 import Insights from "@/components/Insights";
 import ProjectEstimator from "@/components/ProjectEstimator";
 import FAQSection from "@/components/FAQSection";
-import ClientMarquee from "@/components/ClientMarquee";
+import MapDemo from "@/components/MapDemo";
 import FooterCTA from "@/components/FooterCTA";
 
 export default function Home() {
@@ -28,9 +27,6 @@ export default function Home() {
       {/* Section intros — each links to its detailed page */}
       <HomeIntros />
 
-      {/* Client telemetry & testimonials */}
-      <Testimonials />
-
       {/* Interactive scope & timeline investment estimator */}
       <ProjectEstimator />
 
@@ -40,8 +36,8 @@ export default function Home() {
       {/* Clear answers FAQ accordion */}
       <FAQSection />
 
-      {/* Logos band */}
-      <ClientMarquee />
+      {/* World Map section */}
+      <MapDemo />
 
       {/* Closing CTA */}
       <FooterCTA />

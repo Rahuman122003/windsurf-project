@@ -101,9 +101,10 @@ export default function Disciplines() {
                 // 50% smaller than before (was w-[60%]). object-contain so the
                 // prox artwork breathes; right-aligned, vertically centred via
                 // translate baked into inline transform (inline beats className).
-                className="absolute right-0 lg:right-[4%] top-1/2 h-[45%] w-[50%] lg:w-[30%] lg:h-[60%] object-contain transition-opacity duration-500 ease-out"
+                className={`absolute right-0 lg:right-[4%] top-1/2 h-[45%] w-[50%] lg:w-[30%] lg:h-[60%] object-contain transition-opacity duration-500 ease-out ${
+                  i === active ? "opacity-25 lg:opacity-100" : "opacity-0"
+                }`}
                 style={{
-                  opacity: i === active ? (typeof window !== "undefined" && window.innerWidth < 1024 ? 0.25 : 1) : 0,
                   willChange: "opacity",
                   transform: "translate3d(0,-50%,0)",
                 }}

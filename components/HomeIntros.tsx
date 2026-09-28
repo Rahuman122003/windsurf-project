@@ -137,6 +137,10 @@ export default function HomeIntros() {
         // 1) Play-on-enter reveal — fires once when the slide enters the
         // viewport and stays in place. `once: true` prevents it from
         // rewinding/hiding when the user scrolls back up to re-read.
+        const isSmallScreen = typeof window !== "undefined" && window.innerWidth < 768;
+        const mediaFrom = isSmallScreen ? (reverse ? 20 : -20) : (reverse ? 60 : -60);
+        const copyFrom  = isSmallScreen ? (reverse ? -15 : 15) : (reverse ? -50 : 50);
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: slide,
@@ -144,18 +148,14 @@ export default function HomeIntros() {
             once: true,
           },
         });
-        // Alternating horizontal entry — media from one side, copy from the
-        // opposite side. `reverse` flips for every other slide.
-        const mediaFrom = reverse ? 70 : -70;   // % of width
-        const copyFrom  = reverse ? -60 : 60;
         tl.fromTo(
           media,
           {
             xPercent: mediaFrom,
             autoAlpha: 0,
-            scale: 1.04,
-            rotate: reverse ? 1.2 : -1.2,
-            filter: "blur(8px)",
+            scale: 1.02,
+            rotate: reverse ? 0.8 : -0.8,
+            filter: "blur(6px)",
           },
           {
             xPercent: 0,
@@ -163,18 +163,18 @@ export default function HomeIntros() {
             scale: 1,
             rotate: 0,
             filter: "blur(0px)",
-            duration: 1.1,
+            duration: 1.0,
             ease: "power3.out",
           },
           0
         ).fromTo(
           copy,
-          { xPercent: copyFrom, autoAlpha: 0, filter: "blur(6px)" },
+          { xPercent: copyFrom, autoAlpha: 0, filter: "blur(4px)" },
           {
             xPercent: 0,
             autoAlpha: 1,
             filter: "blur(0px)",
-            duration: 1.0,
+            duration: 0.9,
             ease: "power3.out",
           },
           0.1

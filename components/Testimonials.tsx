@@ -61,16 +61,13 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 mb-14">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="text-xs uppercase tracking-[0.3em] font-semibold text-white/50 block mb-3">
-              Client Telemetry & Stories
-            </span>
             <RevealText
               as="h2"
               text="Loved by leaders building what’s next."
               className="font-display font-extrabold text-4xl md:text-6xl leading-[1.05] max-w-4xl text-white"
             />
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/80 bg-white/10 border border-white/20 px-4 py-2 rounded-full w-fit">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/80 bg-white/10 border border-white/20 px-4 py-2 rounded-full w-fit shrink-0">
             <CheckCircle2 size={14} /> 94% Year-1 Client Retention
           </div>
         </div>
